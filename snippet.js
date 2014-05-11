@@ -39,10 +39,17 @@ function getFromLocalStorage(key) {
 
 function removeNos() {
     var nos = getFromLocalStorage('no')
-    nos.forEach(function (no) {
-        var node = document.querySelector('[data-pid="' + no.pid + '"]')
-        node.style.display = 'none'
-    })
+    var selector = nos
+        .map(function (no) {
+            return '[data-pid="' + no.pid + '"]'
+        })
+        .join(',')
+
+    var rule = selector + ' { display:none }'
+
+
+    addStylesheet(rule)
+
 }
 
 function addYesNoButton() {
@@ -52,11 +59,11 @@ function addYesNoButton() {
 
     document.body.appendChild(el)
 
-    addYesNoStylesheet()
+    addStylesheet(yesNoButtonStyle)
     addYesNoEventHandlers(el)
 }
 
-function addYesNoStylesheet() {
+function addStylesheet(cssText) {
 
     var sheet = (function() {
     var style = document.createElement("style");
@@ -65,9 +72,9 @@ function addYesNoStylesheet() {
     document.head.appendChild(style);
 
     if (style.styleSheet) {
-        style.styleSheet.cssText = yesNoButtonStyle;
+        style.styleSheet.cssText = cssText;
     } else {
-        style.appendChild(document.createTextNode(yesNoButtonStyle));
+        style.appendChild(document.createTextNode(cssText));
     }
 
 
