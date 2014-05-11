@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+  "name": "Craigslist Filter",
+  "description": "Say no and we'll hide this post!",
+  "version": "1.0",
+
+  "permissions": [
+    "http://*.craigslist.org/*" 
+  ],
+  "content_scripts": [
+    {
+      "matches": ["http://*.craigslist.org/*"],
+      "js": ["snippet.js"]
+    }
+  ]
+}
